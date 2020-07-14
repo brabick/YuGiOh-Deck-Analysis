@@ -1,0 +1,45 @@
+1. Read Deck
+    convert txt file to list
+    shuffle list contents
+    draw 5 --> create lists of 5
+2. Read hands
+    See what we have in the hands
+    What do we want to analyze?
+        Hands that contain:
+        -Hand Trap (HDT)
+        -Starter (SRT)
+        -Anti-Hand Trap (AHT)
+        -Combo Piece (CBP)
+        -Draw Card (DRC)
+        -Draw Card Cost (DCC)
+        -Extender (EXT)
+        -Searcher (SCH)
+        -Garnet (GAR)
+        -Backrow Disruption (BRD)
+        -Negate (NEG)
+3. Get stats!
+
+Initial questions:
+How to format deck document to associate the card to the type (extender etc.)
+
+6 9 3 3 6 3 7 2
+
+        for hand in self.hand_list:
+            for card in hand:
+                card = card.split(":")
+                card_list.append(card)
+                card_type = card[1]
+
+                self.card_type_list.append(card_type)
+
+self.hand_data = {
+            'htd': 0,
+            'srt': 0,
+            'aht': 0,
+            'cbt': 0,
+            'drc': 0,
+            'dcc': 0,
+            'ext': 0,
+            'brd': 0,
+            'oth': 0
+        }
