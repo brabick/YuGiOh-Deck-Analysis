@@ -22,30 +22,22 @@ class DeckAnalysis:
 
     def make_deck(self):
         # Reads the deck file and adds the adds the contents to a list for further work
-        deck = open("deck.txt", "r")
-        self.deck_list = []
-        for line in deck:
-            line = line[:-1]
-            self.deck_list.append(line)
-        # Shuffle the deck
-        random.shuffle(self.deck_list)
+        read_deck = input('Do you want to read the deck? y/n')
+        if read_deck == 'y':
+            deck = open("deck.txt", "r")
+            self.deck_list = []
+            for line in deck:
+                line = line[:-1]
+                self.deck_list.append(line)
+            # Shuffle the deck
+            random.shuffle(self.deck_list)
+        else:
+            self.input_data(self)
 
     def make_hands(self):
+        self.__init__(self)
         self.make_deck(self)
         self.hand_list = []
-        self.card_types = {
-            'HDT': 0,
-            'SRT': 0,
-            'AHT': 0,
-            'CBP': 0,
-            'DRC': 0,
-            'DCC': 0,
-            'EXT': 0,
-            'SCH': 0,
-            'GAR': 0,
-            'BRD': 0,
-            'OTH': 0
-        }
         loop_times = len(self.deck_list) / 5
         loop = 0
         # Go through the deck, 5 cards at a time
@@ -82,16 +74,19 @@ class DeckAnalysis:
             # print(len(self.deck_list))
             loop = loop + 1
 
-    def input_data(self, hdt=0, srt=0, aht=0, cbp=0, drc=0, dcc=0, ext=0, sch=0, gar=0, brd=0, neg=0):
+    def input_data(self, hdt=0, srt=0, aht=0, cbp=0, drc=0, dcc=0, ext=0, sch=0, gar=0, brd=0, neg=0, oth=0):
         self.__init__(self)
-        loop = 0
+        param_index = 0
+        #self.input_card_types = self.card_types.fromkeys(self.card_types, 0)
         for key in self.card_types:
-            for param in locals():
-                if self.input_data.__code__.co_varnames == key.lower():
-                    input('How many  %s' % key)
-                    locals()[loop] = key
-                    loop = loop + 1
-
+            for param in self.input_data.__code__.co_varnames:
+                if param.upper() == key:
+                    key_input = int(input('How many %s' % key))
+                    locals()[param_index] = key_input
+                    param_index = param_index + 1
+                    for x in range(key_input):
+                        self.deck_list.append(key)
+        print(self.deck_list)
 
     def prep_data(self, num_runs):
         loop = 0
@@ -135,4 +130,4 @@ class DeckAnalysis:
 
 if __name__ == "__main__":
     #DeckAnalysis.do_maths(DeckAnalysis, 100)
-    DeckAnalysis.input_data(DeckAnalysis, 100)
+    DeckAnalysis.input_data(DeckAnalysis)
